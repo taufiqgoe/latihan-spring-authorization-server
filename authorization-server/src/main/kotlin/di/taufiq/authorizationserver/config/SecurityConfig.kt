@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 
-
 @Configuration
 class SecurityConfig {
 
@@ -24,12 +23,19 @@ class SecurityConfig {
 
     @Bean
     fun userDetailsService(): UserDetailsService? {
-        val userDetails: UserDetails = User.withDefaultPasswordEncoder()
+        val user: UserDetails = User.withDefaultPasswordEncoder()
             .username("user")
             .password("user")
             .authorities("USER")
             .build()
-        return InMemoryUserDetailsManager(userDetails)
+
+        val admin: UserDetails = User.withDefaultPasswordEncoder()
+            .username("admin")
+            .password("admin")
+            .authorities("ADMIN")
+            .build()
+
+        return InMemoryUserDetailsManager(user, admin)
     }
 
 }

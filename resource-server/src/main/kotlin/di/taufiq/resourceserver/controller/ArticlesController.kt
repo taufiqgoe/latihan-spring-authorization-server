@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ArticlesController {
 
-    @GetMapping("/articles")
+    @GetMapping("/hello-user")
+    @PreAuthorize("hasAuthority('USER')")
+    fun helloUser(): String {
+        return "hello user"
+    }
+
+    @GetMapping("/hello-user")
     @PreAuthorize("hasAuthority('ADMIN')")
-    fun getArticles(): Array<String>? {
-        return arrayOf("Article 1", "Article 2", "Article 3")
+    fun helloAdmin(): String {
+        return "hello-admin"
     }
 
 }
