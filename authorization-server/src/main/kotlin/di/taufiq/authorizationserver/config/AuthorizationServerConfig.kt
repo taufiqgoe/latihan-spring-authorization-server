@@ -38,20 +38,22 @@ class AuthorizationServerConfig {
         http.getConfigurer(OAuth2AuthorizationServerConfigurer::class.java)
             .oidc(Customizer.withDefaults())
 
+//        http
+//            .csrf().disable()
+//            .cors().disable()
         return http.formLogin(Customizer.withDefaults()).build()
     }
 
     @Bean
     fun registeredClientRepository(): RegisteredClientRepository? {
         val registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("articles-client")
+            .clientId("client")
             .clientSecret("{noop}secret")
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-            .redirectUri("https://oauth.pstmn.io/v1/browser-callback")
+            .redirectUri("https://oauth.pstmn.io/v1/callback")
             .scope(OidcScopes.OPENID)
-            .scope("articles.read")
             .build()
         return InMemoryRegisteredClientRepository(registeredClient)
     }

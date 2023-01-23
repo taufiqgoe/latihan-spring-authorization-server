@@ -2,7 +2,6 @@ package di.taufiq.authorizationserver.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -17,7 +16,8 @@ class SecurityConfig {
     @Bean
     fun defaultSecurityFilterChain(http: HttpSecurity): SecurityFilterChain? {
         http
-            .csrf().and().cors().disable()
+            .csrf().disable()
+            .cors().disable()
             .formLogin()
         return http.build()
     }
